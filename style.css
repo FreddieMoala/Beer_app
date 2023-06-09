@@ -26,6 +26,7 @@ body {
     color: aliceblue;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
+    text-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24);
 }
 
 table,
@@ -35,24 +36,34 @@ td {
     border-color: aliceblue;
 }
 
+
+/* .details-aco.div {
+    background-color: aqua;
+    font-size: 18px;
+    padding: 10px;
+    width: 50px;
+} */
+
 .beer-button {
-    display: inline-block;
     text-decoration: none;
-    background-color: #febc58;
-    box-shadow: -8px -8px 12px 0 rgba(0, 0, 0, 0.3), 12px 12px 16px rgba(255, 255, 255, 0.25);
-    border-radius: 50%;
-    width: 80px;
-    height: 80px;
-    transition: 0.5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border: none;
+    padding: 12px 40px;
+    font-size: 16px;
+    background-color: rgb(78, 92, 219);
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24);
+    cursor: pointer;
+    outline: none;
+    transition: 0.2s all;
 }
 
-.beer-button a:hover {
-    box-shadow: inset 6px 6px 10px 0 rgb(0, 0, 0, 0.2), inset -6px -6px 10px 0 rgba(255, 255, 255, 0.5);
+.beer-button:active {
+    transform: scale(0.90);
+    box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
 }
 
-.beer-button .fab {
+
+/* .beer-button .fab {
     padding-left: 3px;
-}
+} */

@@ -26,13 +26,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     //Attenuation is the measure of a beer’s fermentation process
                 const attenuationLevel = data[0].attenuation_level
                 const image = data[0].image_url
+                console.log(image);
 
                 randomBeer.innerHTML = name
                 descriptionDisplay.innerHTML = description
                 ibuInfo.innerHTML = ibu
                 srmInfo.innerHTML = srm
                 aLevel.innerHTML = attenuationLevel
-                src.appendChild(image);
 
             })
 
