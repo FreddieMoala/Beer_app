@@ -1,98 +1,118 @@
-    html,
-    body {
-        transition: background-color 0.3s ease;
-        display: grid;
-        width: 100%;
-        height: 100%;
-        margin-top: 20px;
-        grid-template-columns: 60% auto auto;
-        grid-template-rows: 60px auto auto auto;
-        grid-template-areas: "hd hd hd" "sidebar main main" "footer footer footer";
-    }
-    
-    .container {
-        width: 20px;
-        grid-area: main;
-        -ms-align-items: inherit;
-        align-items: center;
-        text-align: center;
-        display: grid;
-        grid-template-columns: auto;
-        grid-template-rows: auto;
-        flex-direction: row;
-    }
-    
-    .random-beer {
-        margin-top: 5px;
-        margin-bottom: 0px;
-        font-size: 30px;
-        font-family: Arial, Helvetica, sans-serif;
-    }
-    
-    .description {
-        max-width: 600px;
-        margin-top: 0px;
-        margin-bottom: 0px;
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 20px;
-        text-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24);
-    }
-    
-    table,
-    th,
-    td {
-        border-collapse: collapse;
-        border: 1px solid;
-        padding: 12px 40px;
-        margin-top: 20px;
-    }
-    
-    .beer-button {
-        text-decoration: none;
-        border: none;
-        margin-top: 0px 0px 0px 0px;
-        padding: 12px 0px;
-        font-size: 16px;
-        background-color: rgb(78, 92, 219);
-        color: #fff;
-        border-radius: 5px;
-        box-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24);
-        cursor: pointer;
-        outline: none;
-        transition: 0.2s all;
-    }
-    
-    .beer-button:active {
-        transform: scale(0.90);
-        box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
-    }
-    
-    .col {
-        grid-area: footer;
-        align-content: center;
-        padding-left: 60px;
-        margin-top: 30px;
-        margin-bottom: 30px;
-        columns: 3 250px;
-        width: 1200px;
-        column-rule: 3px solid #333;
-        column-gap: 3rem;
-    }
-    
-    .col p,
-    h2 {
-        margin-top: 0;
-    }
-    
-    .col h2 {
-        text-align: center;
-    }
-    
-    .beer-img {
-        grid-area: sidebar;
-        height: 600px;
-    }
-    
-    .FoodPair {
-        grid-area: main;
-    }
+/* style.css */
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+h1.random-meal {
+    text-align: center;
+    font-size: 3em;
+    margin: 20px 0;
+    color: #d9534f;
+}
+
+button.meal-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 1.5em;
+    color: #fff;
+    background-color: #5cb85c;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button.meal-button:hover {
+    background-color: #4cae4c;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 1200px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.meal-image {
+    flex: 1;
+    text-align: center;
+}
+
+.meal-img {
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.right-bar {
+    flex: 1;
+    padding: 20px;
+}
+
+.Desc {
+    flex: 2;
+    padding: 20px;
+}
+
+.description {
+    font-size: 1.2em;
+    line-height: 1.6;
+}
+
+.ingredients {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ingredients table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.ingredients th {
+    font-size: 1.5em;
+    text-align: left;
+    padding: 10px;
+    background-color: #f2dede;
+    color: #a94442;
+}
+
+.ingredients td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.how-to {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.how-to::before {
+    content: "Instructions";
+    display: block;
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #d9534f;
+    text-align: center;
+}
+
+ul, ol {
+    list-style-type: none;
+    padding-left: 0%;
+    margin-left: 0%;
+}

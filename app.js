@@ -1,93 +1,105 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const startBtn = document.querySelector('.beer-button')
-    const randomBeer = document.querySelector('.random-beer')
-    const descriptionDisplay = document.querySelector('.description')
-    const ibuInfo = document.querySelector('.ibu')
-    const srmInfo = document.querySelector('.srm')
-    const aLevel = document.querySelector('.aLevel')
-    const foodMatch = document.querySelector('.food-match')
-    const src = document.querySelector('.beer-img')
+    const startBtn = document.querySelector('.meal-button');
+    const randomMeal = document.querySelector('.random-meal');
+    const descriptionDisplay = document.querySelector('.how-to');
+    const srcImage = document.querySelector('.meal-img');
 
+    async function getData(e) {
+        try {
+            e.preventDefault();
 
+            const response = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
+            const data = await response.json();
+            const meal = data.meals[0];
 
-    function getData(e) {
-        e.preventDefault()
+            const mealName = meal.strMeal;
+            const mealDescription = meal.strInstructions.split('. ');
+            const mealImage = meal.strMealThumb;
 
-        fetch('https://api.punkapi.com/v2/beers/random')
-            .then(Response => {
-                return Response.json()
-            })
-            .then(data => {
-                console.log(data)
-                const name = data[0].name
-                const description = data[0].description
-                    //ibu is the measure bitter
-                const ibu = data[0].ibu
-                    //srm Standard Reference Method (Color of beer)
-                const srm = data[0].srm
-                    //Attenuation is the measure of a beer’s fermentation process
-                const attenuationLevel = data[0].attenuation_level
-                const foodParing = data[0].food_pairing
-                const image = data[0].image_url
+            randomMeal.innerHTML = mealName;
+            srcImage.setAttribute("src", mealImage);
 
-
-                randomBeer.innerHTML = name
-                descriptionDisplay.innerHTML = description
-                ibuInfo.innerHTML = ibu
-                srmInfo.innerHTML = srm
-                aLevel.innerHTML = attenuationLevel
-                foodMatch.innerHTML = foodParing
-
-                changeBackgroundColor(srm);
-
-                src.setAttribute("src", image);
-
-
-
+            const ul = document.createElement('ul');
+            mealDescription.forEach((description, index) => {
+                const li = document.createElement('li');
+                li.classList.add('no-bullets');
+                li.textContent = `${index + 1}. ${description}`;
+                ul.appendChild(li);
             });
 
+            descriptionDisplay.innerHTML = '';
+            descriptionDisplay.appendChild(ul);
 
+            fetchIngredients(meal);
+        } catch (error) {
+            console.error('Error fetching meal data:', error);
+        }
     }
+
+    async function fetchIngredients(meal) {
+        try {
+            const ingredients = [];
+            const ul = document.getElementById('ingredients-list');
+    
+            for (let i = 1; i <= 20; i++) {
+                const ingredient = meal[`strIngredient${i}`];
+                const measure = meal[`strMeasure${i}`]; 
+                if (ingredient && ingredient.trim() !== '') {
+                    const combined = `${measure || ''} ${ingredient}`.trim();
+                    ingredients.push(combined);
+                }
+            }
+
+            console.log('Ingredients:', ingredients);
+    
+            ul.innerHTML = '';
+    
+            ingredients.forEach((combined) => {
+                const li = document.createElement('li');
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.value = combined;
+                li.textContent = combined;
+                li.prepend(checkbox);
+                ul.appendChild(li);
+            });
+
+            const clearButton = document.getElementById('clear-selection');
+            clearButton.addEventListener('click', () => {
+                const checkboxes = ul.querySelectorAll('input[type="checkbox"]');
+                checkboxes.forEach((checkbox) => {
+                    checkbox.checked = false;
+                });
+            });
+
+            const saveButton = document.getElementById('save-ingredients');
+            saveButton.addEventListener('click', () => {
+                const ingredientsText = ingredients.join('\n');
+                const blob = new Blob([ingredientsText], { type: 'text/plain' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'ingredients.txt';
+                link.click();
+            });
+
+            const saveAllButton = document.getElementById('save-all');
+            saveAllButton.addEventListener('click', () => {
+                const mealName = meal.strMeal;
+                const mealDescription = meal.strInstructions.split('. ').join('\n');
+                const ingredientsText = ingredients.join('\n');
+                const combinedText = `Meal Name: ${mealName}\n\nIngredients:\n${ingredientsText}\n\nInstructions:\n${mealDescription}`;
+                const blob = new Blob([combinedText], { type: 'text/plain' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'meal.txt';
+                link.click();
+            });
+
+        } catch (error) {
+            console.error('Error fetching ingredients:', error);
+        }
+    }
+
 
     startBtn.addEventListener('click', getData);
-
-    function changeBackgroundColor(srmValue) {
-        console.log("changeBackgroundColor called with srmValue:", srmValue);
-
-        let color = "";
-        let textColor = "";
-
-        if (srmValue < 5) {
-            color = "lightyellow";
-        } else if (srmValue >= 5 && srmValue < 10) {
-            color = "gold";
-        } else if (srmValue >= 10 && srmValue < 15) {
-            color = "amber";
-        } else if (srmValue >= 15 && srmValue < 20) {
-            color = "darkOrange";
-        } else if (srmValue >= 20 && srmValue < 25) {
-            color = "brown";
-        } else if (srmValue >= 25 && srmValue <= 30) {
-            color = "darkbrown";
-        } else {
-            color = "black";
-            textColor = "white";
-        }
-
-        document.body.setAttribute("style", `background-color: ${color} !important`);
-        document.body.style.color = textColor;
-    }
-
-    let inputElement = document.querySelector("#srm-input")
-
-    inputElement.addEventListener("input", () => {
-        let srmValue = inputElement.value;
-        console.log(changeBackgroundColor(srmValue));
-
-
-    });
-
-
-
-
-})
+});
